@@ -32,3 +32,4 @@ Only one command to run:
 ```bash
 $ node server
 ```
+Server works on port 4000

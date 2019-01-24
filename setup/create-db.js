@@ -1,9 +1,6 @@
 const mysql = require('mysql'),
       { user, host, password, database } = require('./db-settings');
 
-console.log('createdb.js');
-
-
 const con = mysql.createConnection({
   host,
   user,

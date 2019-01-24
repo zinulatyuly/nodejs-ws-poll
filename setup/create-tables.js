@@ -1,8 +1,6 @@
 const mysql = require('mysql'),
       { user, password, host, database } = require('./db-settings');
 
-console.log('crea-tetables.js');
-
 const con = mysql.createConnection({
   host,
   user,

@@ -1,8 +1,6 @@
 const mysql = require('mysql'),
       { user, password, host, database } = require('./db-settings');
 
-console.log('foreign.js');
-
 let con = mysql.createConnection({
   host,
   user,
