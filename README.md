@@ -4,9 +4,11 @@ This is a **poll** that corresponds the requirements of the task **shown below**
 ![screenshot](images/task.png)
 
 HTML code example 1
+
 ![screenshot](images/htmlexample1.png)
 
 HTML code example 2
+
 ![screenshot](images/htmlexample2.png)
 
 ## Introduction
