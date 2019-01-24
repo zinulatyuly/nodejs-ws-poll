@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="minimum-scale=1.0, width=device-width, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Roboto+Condensed:300,400,400i,700"
+          media="all">
+    <title>Test task</title>
+    <link rel="stylesheet" href="app.css">
+    <script src="index.js" defer></script>
+</head>
+
+<body>
+<header>
+    <h1>Test task</h1>
+</header>
+
+<main>
+    <div class="page">
+        <form id="form" method="post" action="/create-poll.js">
+            <div class="poll">
+                <table class="poll-table">
+                    <thead>
+                    <tr>
+                        <th>Question:</th>
+                        <th>
+                            <input type="text" name="question" value="Where do we go out tonight?" required class="input-text">
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody id="answers">
+                    <tr>
+                        <th>Answer 1:</th>
+                        <td>
+                            <input type="text" name="answers" value="Yes" required class="input-text">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Answer 2:</th>
+                        <td>
+                            <input type="text" name="answers" value="No" required class="input-text">
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <button id="add-answer" type="button" class="btn btn--start">
+                    +
+                </button>
+                <button type="submit" class="btn btn--start">
+                    Start
+                </button>
+
+            </div>
+        </form>
+    </div>
+</main>
+
+</body>
+</html>
