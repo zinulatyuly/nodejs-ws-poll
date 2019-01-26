@@ -12,7 +12,7 @@ const ws = new WebSocket('ws://localhost:3000');
 let answers = [];
 let voter = {};
 
-function onMessage(value, myRecord = null) {
+function onMessage(value) {
   if (value.startsWith('answers=')) {
     answers = JSON.parse(value.slice(8));
   }

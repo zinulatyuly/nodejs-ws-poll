@@ -17,7 +17,7 @@ wsServer.on('connection', (ws, req) => {
   let cookies = service.parseCookies(req);
   if (cookies.questionId) {
     ws.clientCookies = cookies.questionId;
-    db.select('answers', `question_id="${cookies.questionId}"`, answerRows => {
+    db.select('answers', `question_id="${service.cured(cookies.questionId)}"`, answerRows => {
       ws.send(`answers=${JSON.stringify(answerRows)}`);
     });
   }
@@ -27,12 +27,11 @@ wsServer.on('connection', (ws, req) => {
       let result = parse(message);
       db.insert(
         'voters (question_id, answer_id, name, session)',
-        `"${cookies.questionId}", "${result.answer}", "${result.name}", "${cookies.sessionId}"`,
+        `"${cookies.questionId}", "${service.cured(result.answer)}", "${service.cured(result.name)}", "${service.cured(cookies.sessionId)}"`,
         () => {
-          db.selectFirst('voters', `session = "${cookies.sessionId}" AND question_id="${cookies.questionId}"`, insertedRow => {
+          db.last('voters', insertedRow => {
             ws.send(`inserted=${JSON.stringify(insertedRow)}`);
             wsServer.clients.forEach(client => {
-            
               if (client.readyState === WebSocket.OPEN && Number(insertedRow.question_id) === Number(client.clientCookies)) {
                 client.send(JSON.stringify(insertedRow));
               }
@@ -59,7 +58,7 @@ httpServer.on('request', (req, res) => {
       let getData = parse(filePath.split('?')[1]);
 
       if (getData.url) {
-        db.selectFirst('questions', `url = "${getData.url}"`, questionRow => {
+        db.selectFirst('questions', `url = "${service.cured(getData.url)}"`, questionRow => {
           db.select('answers', `question_id = "${questionRow.id}"`, answerRows => {
             let
               questionLabels = '',
@@ -155,11 +154,11 @@ httpServer.on('request', (req, res) => {
     service.fetchPostData(req, result => {
       if (result.question) {
         let url = service.makeRandom(36);
-        db.insert('questions (question, url)', `"${result.question}", "${url}"`, () => {
+        db.insert('questions (question, url)', `"${service.cured(result.question)}", "${url}"`, () => {
           db.last('questions', insertedRow => {
             let buff = [];
             for (let answer of result.answers) {
-              buff.push(`"${insertedRow.id}", "${answer}"`)
+              buff.push(`"${insertedRow.id}", "${service.cured(answer)}"`)
             }
             db.insertMany('answers (question_id, answer)', buff, 0, () => {
               res.end(`/poll?url=${insertedRow.url}`);

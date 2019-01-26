@@ -21,6 +21,9 @@ module.exports = {
     
     return list;
   },
+  cured: str => {
+    return str.replace(/[^\w\s]/gi, '')
+  },
   makeRandom: n => {
     let text = "";
     let possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
